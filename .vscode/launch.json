@@ -1,0 +1,43 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch test",
+            "request": "launch",
+            "mainClass": "test",
+            "projectName": "T4_675aca7",
+            "args": [
+                "-u",
+                "input.txt",
+                "output.txt"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}",
+            "args": [
+                "-u",
+                "input.txt",
+                "output.txt"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "Launch FilesInOut",
+            "request": "launch",
+            "mainClass": "FilesInOut",
+            "projectName": "T4_675aca7",
+            "args": [
+                "-u",
+                "inputm.txt",
+                "output.txt"
+            ]
+        }
+    ]
+}
