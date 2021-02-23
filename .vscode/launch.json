@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch newInOut",
+            "request": "launch",
+            "mainClass": "newInOut",
+            "projectName": "T4_675aca7"
+        },
+        {
+            "type": "java",
             "name": "Launch test",
             "request": "launch",
             "mainClass": "test",

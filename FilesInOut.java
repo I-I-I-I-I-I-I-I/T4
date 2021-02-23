@@ -1,75 +1,64 @@
-import java.io.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-
-import javax.sound.midi.SysexMessage;
-import javax.swing.*;
-import java.lang.Number;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
-import java.util.regex.*;
 
-/**
- * 
- * CSCU9T4 Java strings and files exercise.
- *
- */
-public class FilesInOut {
+public class filesInOut
+{
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) 
+    {
 
-        String path = System.getProperty("user.dir");
-        File fileIn = null;
-        File fileOut = null;
+        String fileIn;
+        File inputfile;
+        Scanner inFile = null;;
+        Scanner sc = new Scanner(System.in);
+        PrintWriter fileOutput = null;
 
-        /*
-         * This block of 'ifs' and 'trys' checks for the "-u" modifier, then tries to
-         * find the files in positions 1 & 2 instead if the modifier is present The '-u'
-         * in args[0] (if present), is never actually used to modify anything until the
-         * block starting at LINE 62
-         */
-        if (args[0].equals("-u")) {
-            try {
-                fileIn = new File(path + "\\" + args[1]);
-                fileOut = new File(path + "\\" + args[2]);
-            } catch (Exception e) {
-                System.err.println(
-                        "Invalid Command line Arguments : ('[Optional Modifier] , [input file] , [output file]')");
-            }
+        System.out.println("Give input filename");
+               
+        try {
+            
+            fileIn = sc.nextLine();
+            inputfile = new File(fileIn);
+            inFile = new Scanner(inputfile);
 
-        } else {
-            try {
-                fileIn = new File(path + "\\" + args[0]);
-                fileOut = new File(path + "\\" + args[1]);
-            } catch (Exception e) {
-                System.err.println(
-                        "Invalid Command line Arguments : ('[Optional Modifier] , [input file] , [output file]')");
-            }
+        } catch (IOException e) {
+            
+            System.err.println("IOException: " + e.getMessage() + " not found");
 
         }
 
-        Scanner fileScan = new Scanner(fileIn);
-        PrintWriter fileWrite = new PrintWriter(fileOut);
+        System.out.println("Give output filename");
+        try {
 
-        // Scans through every line until there is no more line left to be scanning.
-        while (fileScan.hasNext()) {
-            String currentLine = fileScan.nextLine();
+                String outputFile = sc.nextLine();
+                fileOutput = new PrintWriter(outputFile);
+        } 
+        catch (IOException e) {
+            
+            System.err.println("IOException: "+ e.getMessage() + " not found.");
+            System.exit(0);
+        } 
 
-            if (args[0].equals("-u")) {
-                fileWrite.write(names(currentLine).toUpperCase() + "\n");
-            } else {
-                fileWrite.write(names(currentLine) + "\n");
+          
+        while (inFile.hasNext()) {
+            String currentLine = inFile.nextLine();
+
+            try {
+                if (args[0].equals("-u")) {
+                    fileOutput.write(names(currentLine).toUpperCase() + "\n");
+            } 
+        }
+        catch (Exception e) {
+                fileOutput.write(names(currentLine) + "\n");
             }
         }
 
-        fileWrite.close();
-        fileScan.close();
+        fileOutput.close();
+        fileOutput.close();
+    }
 
-    } // main
 
     /*
      * Uses the string split method to split each name and number from eachother,
@@ -105,7 +94,20 @@ public class FilesInOut {
 
     }
 
-    /*
+    //substring sequence that cuts up the date and reformats it as a new String in a dd/MM/yyyy format. Didn't use the date functions of Java cause they were annoying me.
+    public static String dateFormat(String date) {
+
+        String dd = date.substring(0,2);
+        String MM = date.substring(2, 4);
+        String yyyy = date.substring(4);
+
+        String finalDate = dd + "/" + MM + "/" + yyyy;
+
+        return finalDate;
+
+        }
+
+     /*
      * In charge of adding the upper case to the start of the names, including
      * capitalising the middle name letter Using substrings to slice the first
      * letter off the front and stick an upper case one back on.
@@ -127,17 +129,5 @@ public class FilesInOut {
         return finalName;
     }
 
-    //substring sequence that cuts up the date and reformats it as a new String in a dd/MM/yyyy format. Didn't use the date functions of Java cause they were annoying me.
-    public static String dateFormat(String date) {
 
-            String dd = date.substring(0,2);
-            String MM = date.substring(2, 4);
-            String yyyy = date.substring(4);
-
-            String finalDate = dd + "/" + MM + "/" + yyyy;
-
-            return finalDate;
-
-            }
-
-} // FilesInOut
+}
